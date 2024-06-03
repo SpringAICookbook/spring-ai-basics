@@ -1,0 +1,7 @@
+spring:
+  ai:
+    ollama:
+      chat:
+        enabled: false
+    openai:
+      apiKey: ${OPENAI_API_KEY:demo}

@@ -1,0 +1,14 @@
+spring:
+  ai:
+    ollama:
+      chat:
+        enabled: true
+        options:
+          model: "phi3"
+          temperature: 0.2
+    openai:
+      chat:
+        enabled: false
+logging:
+  level:
+    ChatClient.debugger: DEBUG

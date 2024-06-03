@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Spring AI Streaming Chat Client</title>
+  <style>
+    #messages {
+      height: 500px;
+      border: 1px solid grey;
+      overflow-y: scroll;
+    }
+
+    #controls {
+      margin: 10px 0;
+    }
+  </style>
+  <script src="https://unpkg.com/axios@1.6.7/dist/axios.min.js"></script>
+  <script>
+    var eventSource = new EventSource("/streaming/chatResponse");
+    eventSource.addEventListener("message", (e) => {
+      var messages = document.getElementById("messages");
+      var message = document.createElement("p");
+      message.textContent = e.data;
+      messages.appendChild(message);
+    });
+    function chat() {
+      var input = document.getElementById("chatInput");
+      if (input.value) {
+        axios.post("/streaming/chat", {
+          input: input.value
+        });
+      }
+    }
+
+    function stop() {
+      axios.post("/streaming/stop");
+    }
+  </script>
+</head>
+<body>
+<h1>Spring AI Streaming Chat Client</h1>
+<div id="messages">
+
+</div>
+<div id="controls">
+  <input id="chatInput">
+  <button onclick="chat()">Send</button>
+  <button onclick="stop()">Stop</button>
+</div>
+</body>
+</html>

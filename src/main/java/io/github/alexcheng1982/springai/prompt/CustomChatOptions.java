@@ -1,7 +1,7 @@
 package io.github.alexcheng1982.springai.prompt;
 
 import java.util.List;
-import org.springframework.ai.chat.ChatClient;
+import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.ollama.api.OllamaOptions;
 
@@ -17,6 +17,6 @@ public class CustomChatOptions {
     Prompt prompt = new Prompt(input, OllamaOptions.create()
         .withTemperature(0.1f)
         .withStop(List.of("Observation:")));
-    return chatClient.call(prompt).getResult().getOutput().getContent();
+    return chatClient.prompt(prompt).call().content();
   }
 }

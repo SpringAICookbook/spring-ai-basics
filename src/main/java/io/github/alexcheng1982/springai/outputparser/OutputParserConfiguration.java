@@ -1,6 +1,6 @@
 package io.github.alexcheng1982.springai.outputparser;
 
-import org.springframework.ai.chat.ChatClient;
+import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.parser.ListOutputParser;
 import org.springframework.ai.parser.MapOutputParser;
 import org.springframework.context.annotation.Bean;
@@ -28,10 +28,10 @@ public class OutputParserConfiguration {
 
   @Bean
   public OutputParserChatService chatService(
-      ChatClient chatClient,
+      ChatClient.Builder builder,
       ListOutputParser listOutputParser,
       MapOutputParser mapOutputParser) {
-    return new OutputParserChatService(chatClient, listOutputParser,
+    return new OutputParserChatService(builder.build(), listOutputParser,
         mapOutputParser);
   }
 }

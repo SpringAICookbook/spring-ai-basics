@@ -1,6 +1,6 @@
 package io.github.alexcheng1982.springai.streaming;
 
-import org.springframework.ai.chat.ChatResponse;
+import org.springframework.ai.chat.model.ChatResponse;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Sinks;
 

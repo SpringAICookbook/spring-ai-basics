@@ -2,7 +2,7 @@ package io.github.alexcheng1982.springai.prompt;
 
 import java.util.List;
 import java.util.Map;
-import org.springframework.ai.chat.ChatClient;
+import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.messages.Message;
 import org.springframework.ai.chat.messages.SystemMessage;
 import org.springframework.ai.chat.prompt.Prompt;
@@ -29,6 +29,6 @@ public class CookingServiceWithSystemMessage {
         new SystemMessage("You are a master chef."),
         message
     ));
-    return chatClient.call(prompt).getResult().getOutput().getContent();
+    return chatClient.prompt(prompt).call().content();
   }
 }

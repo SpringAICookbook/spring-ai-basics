@@ -1,7 +1,7 @@
 package io.github.alexcheng1982.springai.prompt;
 
 import java.util.List;
-import org.springframework.ai.chat.ChatClient;
+import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.messages.SystemMessage;
 import org.springframework.ai.chat.messages.UserMessage;
 import org.springframework.ai.chat.prompt.Prompt;
@@ -21,6 +21,6 @@ public class JavaProgrammingChatService {
             new UserMessage(input)
         )
     );
-    return chatClient.call(prompt).getResult().getOutput().getContent();
+    return chatClient.prompt(prompt).call().content();
   }
 }

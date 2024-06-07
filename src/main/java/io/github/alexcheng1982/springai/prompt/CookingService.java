@@ -1,7 +1,7 @@
 package io.github.alexcheng1982.springai.prompt;
 
 import java.util.Map;
-import org.springframework.ai.chat.ChatClient;
+import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.chat.prompt.PromptTemplate;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,6 +22,6 @@ public class CookingService {
     Prompt prompt = new PromptTemplate(promptResource).create(
         Map.of("dish", dish)
     );
-    return chatClient.call(prompt).getResult().getOutput().getContent();
+    return chatClient.prompt(prompt).call().content();
   }
 }

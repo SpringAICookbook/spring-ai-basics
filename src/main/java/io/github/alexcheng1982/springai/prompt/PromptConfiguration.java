@@ -1,6 +1,6 @@
 package io.github.alexcheng1982.springai.prompt;
 
-import org.springframework.ai.chat.ChatClient;
+import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 public class PromptConfiguration {
 
   @Bean
-  public CookingService cookingService(ChatClient chatClient) {
-    return new CookingService(chatClient);
+  public CookingService cookingService(ChatClient.Builder builder) {
+    return new CookingService(builder.build());
   }
 }

@@ -2,7 +2,7 @@ package io.github.alexcheng1982.springai.outputparser;
 
 import java.util.List;
 import java.util.Map;
-import org.springframework.ai.chat.ChatClient;
+import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.prompt.PromptTemplate;
 import org.springframework.ai.parser.BeanOutputParser;
 import org.springframework.ai.parser.ListOutputParser;
@@ -28,13 +28,13 @@ public class OutputParserChatService {
                 
         {format}
         """);
-    var response = chatClient.call(promptTemplate.create(
+    var response = chatClient.prompt(promptTemplate.create(
         Map.of(
             "input", input,
             "format", listOutputParser.getFormat()
         )));
     return listOutputParser.parse(
-        response.getResult().getOutput().getContent());
+        response.call().content());
   }
 
   public Map<String, Object> mapOutput(String input) {
@@ -43,13 +43,13 @@ public class OutputParserChatService {
                 
         {format}
         """);
-    var response = chatClient.call(promptTemplate.create(
+    var response = chatClient.prompt(promptTemplate.create(
         Map.of(
             "input", input,
             "format", mapOutputParser.getFormat()
         )));
     var content = normalizeJsonOutput(
-        response.getResult().getOutput().getContent());
+        response.call().content());
     return mapOutputParser.parse(content);
   }
 
@@ -60,12 +60,12 @@ public class OutputParserChatService {
                 
         {format}
         """);
-    var response = chatClient.call(promptTemplate.create(
+    var response = chatClient.prompt(promptTemplate.create(
         Map.of(
             "format", outputParser.getFormat()
         )));
     var content = normalizeJsonOutput(
-        response.getResult().getOutput().getContent());
+        response.call().content());
     return outputParser.parse(content);
   }
 

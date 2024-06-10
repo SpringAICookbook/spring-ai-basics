@@ -1,4 +1,9 @@
 spring:
+  application:
+    name: spring-ai-basics
+  threads:
+    virtual:
+      enabled: true
   ai:
     ollama:
       chat:

@@ -1,7 +1,6 @@
 package io.github.alexcheng1982.springai.outputconverter;
 
 import io.github.alexcheng1982.springai.ChatRequest;
-import io.github.alexcheng1982.springai.outputparser.OutputParserChatService;
 import io.github.alexcheng1982.springai.outputparser.Users;
 import java.util.List;
 import java.util.Map;
@@ -22,16 +21,16 @@ public class OutputConverterChatController {
 
   @PostMapping("/list")
   public List<String> listOutput(@RequestBody ChatRequest request) {
-    return chatService.listOutput(request.input());
+    return chatService.listOutput2(request.input());
   }
 
   @PostMapping("/map")
   public Map<String, Object> mapOutput(@RequestBody ChatRequest request) {
-    return chatService.mapOutput(request.input());
+    return chatService.mapOutput3(request.input());
   }
 
   @PostMapping("/bean")
   public Users beanOutput() {
-    return chatService.beanOutput();
+    return chatService.beanOutput2();
   }
 }

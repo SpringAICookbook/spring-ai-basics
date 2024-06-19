@@ -1,0 +1,19 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+scale 1024 width
+
+interface Model<TReq extends ModelRequest<?>, TRes extends ModelResponse<?>> {
+  TRes call(TReq request)
+}
+interface ChatModel
+interface EmbeddingModel
+interface ImageModel
+interface SpeechModel
+
+Model <|-- ChatModel
+Model <|-- EmbeddingModel
+Model <|-- ImageModel
+Model <|-- SpeechModel
+
+@enduml

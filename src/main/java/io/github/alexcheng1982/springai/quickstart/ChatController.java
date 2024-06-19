@@ -1,5 +1,6 @@
 package io.github.alexcheng1982.springai.quickstart;
 
+import io.github.alexcheng1982.springai.observation.LoggingAdvisor;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -10,8 +11,9 @@ public class ChatController {
 
   private final ChatClient chatClient;
 
-  public ChatController(ChatClient.Builder builder) {
-    this.chatClient = builder.build();
+  public ChatController(ChatClient.Builder builder,
+      LoggingAdvisor loggingAdvisor) {
+    this.chatClient = builder.defaultAdvisors(loggingAdvisor).build();
   }
 
   @GetMapping("/chat")

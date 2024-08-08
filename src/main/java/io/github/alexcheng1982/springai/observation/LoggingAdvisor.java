@@ -6,11 +6,13 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import java.util.Map;
+import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ai.chat.client.AdvisedRequest;
 import org.springframework.ai.chat.client.RequestResponseAdvisor;
 import org.springframework.ai.chat.model.ChatResponse;
+import org.springframework.ai.chat.model.MessageAggregator;
 import reactor.core.publisher.Flux;
 
 public class LoggingAdvisor implements RequestResponseAdvisor {
@@ -40,7 +42,8 @@ public class LoggingAdvisor implements RequestResponseAdvisor {
   @Override
   public Flux<ChatResponse> adviseResponse(Flux<ChatResponse> fluxResponse,
       Map<String, Object> context) {
-    return fluxResponse.doOnEach(response -> debug(response, context));
+    return new MessageAggregator().aggregate(fluxResponse,
+        response -> debug(response, context));
   }
 
   private void debug(Object value, Map<String, Object> context) {
@@ -51,7 +54,9 @@ public class LoggingAdvisor implements RequestResponseAdvisor {
               {}: {}
               Context: {}
               ===========================
-              """, value.getClass().getSimpleName(), writeAsString(value),
+              """,
+          value.getClass().getSimpleName(),
+          writeAsString(value),
           context);
     }
   }
@@ -60,7 +65,7 @@ public class LoggingAdvisor implements RequestResponseAdvisor {
     try {
       return objectMapper.writeValueAsString(input);
     } catch (JsonProcessingException e) {
-      return "";
+      return Objects.toString(input);
     }
   }
 }
